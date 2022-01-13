@@ -68,7 +68,11 @@ if(xxHash_FOUND)
   endif()
 
   if(NOT TARGET xxHash::xxHash)
-    add_library(xxHash::xxHash UNKNOWN IMPORTED)
+    if(xxHash_USE_STATIC_LIBS)
+      add_library(xxHash::xxHash STATIC IMPORTED)
+    else()
+      add_library(xxHash::xxHash UNKNOWN IMPORTED)
+    endif()
     set_target_properties(
       xxHash::xxHash PROPERTIES
       IMPORTED_LOCATION "${xxHash_LIBRARY}"
